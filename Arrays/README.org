@@ -5,16 +5,20 @@
   - [[#description][Description]]
   - [[#examples][Examples]]
   - [[#submissions][Submissions]]
-- [[#1470-shuffle-the-array][1470. Shuffle the Array]]
+- [[#1431-kids-with-greatest-candies][1431. Kids With Greatest Candies]]
   - [[#description-1][Description]]
   - [[#examples-1][Examples]]
-  - [[#constraints][Constraints]]
   - [[#submissions-1][Submissions]]
-- [[#1929-concatenation-of-array][1929. Concatenation of Array]]
+- [[#1470-shuffle-the-array][1470. Shuffle the Array]]
   - [[#description-2][Description]]
   - [[#examples-2][Examples]]
-  - [[#constraints-1][Constraints]]
+  - [[#constraints][Constraints]]
   - [[#submissions-2][Submissions]]
+- [[#1929-concatenation-of-array][1929. Concatenation of Array]]
+  - [[#description-3][Description]]
+  - [[#examples-3][Examples]]
+  - [[#constraints-1][Constraints]]
+  - [[#submissions-3][Submissions]]
 
 * 238. Move Zeroes
 ** Description
@@ -93,6 +97,136 @@ function moveZeroes(nums) {
 
 #+RESULTS:
 | 1 | (0) | (0) |
+
+* 1431. Kids With Greatest Candies
+** Description
+There are =n= kids with candies. You are given an integer array =candies=, where
+each =candies[i]= represents the number of candies the =i^{th}= kid has, and an
+integer =extraCandies= , denoting the number of extra candies that you have.
+
+Return /a boolean array/  =result=  /of length/  =n= /, where/  =result[i]=  /is/  =true=  /if,
+after giving the/  =i^{th}=  /kid all the/  =extraCandies=  /, they will have the
+*greatest*  number of candies among all the kids/ /, or/  =false=   /otherwise/ .
+
+Note that *multiple* kids can have the *greatest*  number of candies.
+
+** Examples
+*Example 1:*
+
+#+begin_src
+Input: candies = [2,3,5,1,3], extraCandies = 3
+Output: [true,true,true,false,true]
+Explanation: If you give all extraCandies to:
+- Kid 1, they will have 2 + 3 = 5 candies, which is the greatest among the kids.
+- Kid 2, they will have 3 + 3 = 6 candies, which is the greatest among the kids.
+- Kid 3, they will have 5 + 3 = 8 candies, which is the greatest among the kids.
+- Kid 4, they will have 1 + 3 = 4 candies, which is not the greatest among the kids.
+- Kid 5, they will have 3 + 3 = 6 candies, which is the greatest among the kids.
+
+#+end_src
+
+*Example 2:*
+
+#+begin_src
+Input: candies = [4,2,1,1,2], extraCandies = 1
+Output: [true,false,false,false,false]
+Explanation: There is only 1 extra candy.
+Kid 1 will always have the greatest number of candies, even if a different kid is given the extra candy.
+
+#+end_src
+
+*Example 3:*
+
+#+begin_src
+Input: candies = [12,1,12], extraCandies = 10
+Output: [true,false,true]
+#+end_src
+
+** Submissions
+*** Submission 1
+/Runtime: 65 ms/ - Beats 61.58%
+/Memory: 44.1 MB/ - Beats 5.64%
+
+This solution is too memory intensive
+
+#+begin_src js
+let candies = [2, 3, 5, 1, 3];
+return kidsWithCandies(candies, 3);
+
+
+/**
+ * @param {number[]} candies
+ * @param {number} extraCandies
+ * @return {boolean[]}
+ */
+function kidsWithCandies(candies, extraCandies) {
+  const candiesCopy = [...candies];
+  const maxCandy = candies.sort((a, b) => a - b).reverse()[0];
+  const results = [];
+  for (let candy of candiesCopy) {
+    results.push(candy + extraCandies >= maxCandy);
+  }
+  return results;
+}
+#+end_src
+
+#+RESULTS:
+| true | true | true | false | true |
+
+*** Submission 2
+/Runtime: 54 ms/ - Beats 95.86%
+/Memory: 42.9 MB/ - Beats 11.58%
+
+Way faster from having to do array operations. Also used the =max()= function.
+Still pretty memory intensive though
+
+#+begin_src js
+let candies = [2, 3, 5, 1, 3];
+return kidsWithCandies(candies, 3);
+
+/**
+ ,* @param {number[]} candies
+ ,* @param {number} extraCandies
+ ,* @return {boolean[]}
+ ,*/
+function kidsWithCandies(candies, extraCandies) {
+  const maxCandy = Math.max(...candies);
+  const results = [];
+  for (let candy of candies) {
+    results.push(candy + extraCandies >= maxCandy);
+  }
+  return results;
+}
+
+
+#+end_src
+
+#+RESULTS:
+| true | true | true | false | true |
+
+*** Submission 3
+/Runtime: 42 ms/ - Beats 99.92%
+/Memory: 42.9 MB/ - Beats 11.58%
+
+A lot faster. Still big use of memory
+
+#+begin_src js
+let candies = [2, 3, 5, 1, 3];
+return kidsWithCandies(candies, 3);
+
+/**
+ ,* @param {number[]} candies
+ ,* @param {number} extraCandies
+ ,* @return {boolean[]}
+ ,*/
+function kidsWithCandies(candies, extraCandies) {
+  const maxCandy = Math.max(...candies);
+  return candies.map((candy) => candy + extraCandies >= maxCandy);
+}
+#+end_src
+
+#+RESULTS:
+| true | true | true | false | true |
 
 * 1470. Shuffle the Array
 ** Description
