@@ -10,6 +10,11 @@
   - [[#description-1][Description]]
   - [[#examples-1][Examples]]
   - [[#submissions-1][Submissions]]
+- [[#1678-goal-parser][1678. Goal Parser]]
+  - [[#description-2][Description]]
+  - [[#examples-2][Examples]]
+  - [[#constraints-1][Constraints]]
+  - [[#submissions-2][Submissions]]
 
 * 344. Reverse a String
 ** Description
@@ -159,3 +164,119 @@ function restoreString(s, indices) {
 
 #+RESULTS:
 : leetcode
+
+* 1678. Goal Parser
+** Description
+/Difficulty: Easy/
+
+You own a *Goal Parser* that can interpret a string =command=. The =command= consists
+of an alphabet of ="G"=, ="()"= and/or ="(al)"= in some order. The Goal Parser will
+interpret ="G"= as the string ="G"=, ="()"= as the string ="o"=, and ="(al)"= as the
+string ="al"= . The interpreted strings are then concatenated in the original
+order.
+
+Given the string =command=, return /the *Goal Parser*'s interpretation of/  =command= .
+
+** Examples
+*Example 1:*
+
+#+begin_src
+Input: command = "G()(al)"
+Output: "Goal"
+Explanation: The Goal Parser interprets the command as follows:
+G -> G
+() -> o
+(al) -> al
+The final concatenated result is "Goal".
+
+#+end_src
+
+*Example 2:*
+
+#+begin_src
+Input: command = "G()()()()(al)"
+Output: "Gooooal"
+
+#+end_src
+
+*Example 3:*
+
+#+begin_src
+Input: command = "(al)G(al)()()G"
+Output: "alGalooG"
+
+#+end_src
+
+** Constraints
+
+- ~1 <= command.length <= 100~
+- =command= consists of ="G"=, ="()"=, and/or ="(al)"=  in some order.
+
+** Submissions
+*** Submission 1
+/Runtime: 63 ms/ - beats 56.32%
+/Memory: 42.2 MB/ - beats 36.44%
+
+I thought about using an object for this solution, but didn't know how I'd
+implement it
+
+#+begin_src js
+const command = 'G()(al)';
+// const command = 'G()()()()(al)';
+return goalParser(command);
+
+/**
+ * @param {string} command
+ * @returns  {string}
+ */
+function goalParser(command) {
+  let parsed = '';
+  for (let i = 0; i < command.length; i++) {
+    if (command[i] === '(' && command[i + 1] === ')') {
+      parsed += 'o';
+      i += 1;
+    } else if (command[i] === '(' && command[i + 1] === 'a') {
+      parsed += 'al';
+      i += 3;
+    } else {
+      parsed += command[i];
+    }
+  }
+  return parsed;
+}
+#+end_src
+
+#+RESULTS:
+: Goal
+
+*** Submission 2
+
+#+begin_src js
+const command = 'G()(al)';
+// const command = 'G()()()()(al)';
+console.log(goalParser(command));
+
+/**
+ * @param {string} command
+ * @returns  {string}
+ */
+function goalParser(command) {
+  let parsed = '';
+  const dict = {
+    G: 'G',
+    '()': 'o',
+    '(al)': 'al',
+  };
+  let temp = '';
+  for (let i = 0; i < command.length; i++) {
+    temp += command[i];
+    if (dict[temp]) {
+      parsed += dict[temp];
+      temp = '';
+    }
+  }
+  return parsed;
+}
+
+
+#+end_src
