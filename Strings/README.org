@@ -1,20 +1,98 @@
 #+title: Strings
 
 * TABLE OF CONTENTS :TOC:
-- [[#344-reverse-a-string][344. Reverse a String]]
+- [[#242-valid-anagram][242. Valid Anagram]]
   - [[#description][Description]]
   - [[#examples][Examples]]
-  - [[#constraints][Constraints]]
   - [[#submissions][Submissions]]
-- [[#1528-shuffle-string][1528. Shuffle String]]
+- [[#344-reverse-a-string][344. Reverse a String]]
   - [[#description-1][Description]]
   - [[#examples-1][Examples]]
+  - [[#constraints][Constraints]]
   - [[#submissions-1][Submissions]]
-- [[#1678-goal-parser][1678. Goal Parser]]
+- [[#1528-shuffle-string][1528. Shuffle String]]
   - [[#description-2][Description]]
   - [[#examples-2][Examples]]
-  - [[#constraints-1][Constraints]]
   - [[#submissions-2][Submissions]]
+- [[#1678-goal-parser][1678. Goal Parser]]
+  - [[#description-3][Description]]
+  - [[#examples-3][Examples]]
+  - [[#constraints-1][Constraints]]
+  - [[#submissions-3][Submissions]]
+
+* 242. Valid Anagram
+** Description
+/Difficulty: Easy/
+
+Given two strings =s= and =t=, return =true= /if/ =t= /is an anagram of/ =s=  /, and/ =false= /otherwise/ .
+
+An *Anagram*  is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+** Examples
+*Example 1:*
+
+#+begin_src
+Input: s = "anagram", t = "nagaram"
+Output: true
+
+#+end_src
+
+*Example 2:*
+
+#+begin_src
+Input: s = "rat", t = "car"
+Output: false
+#+end_src
+
+** Submissions
+#+begin_src js
+const s = 'anagram',
+  t = 'nagaram';
+
+console.log(isAnagram(s, t));
+/**
+ * @param {string} s
+ * @param {string} t
+ * @returns
+ */
+
+function isAnagram(s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+
+  const sMap = {};
+  const tMap = {};
+
+  // count the characters in the 's' string
+  for (let c of s) {
+    if (!(c in sMap)) {
+      sMap[c] = 1;
+    } else {
+      sMap[c] += 1;
+    }
+  }
+
+  // count the characters in the 't' string
+  for (let c of t) {
+    if (!(c in tMap)) {
+      tMap[c] = 1;
+    } else {
+      tMap[c] += 1;
+    }
+  }
+  const tMapKeys = Object.keys(tMap);
+
+  // check if the maps have different keys or the number
+  // of occurences of a letter are uneven between the two
+  for (let key of tMapKeys) {
+    if (!sMap.hasOwnProperty(key) || sMap[key] !== tMap[key]) {
+      return false;
+    }
+  }
+  return true;
+}
+#+end_src
 
 * 344. Reverse a String
 ** Description
