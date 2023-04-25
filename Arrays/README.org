@@ -5,26 +5,29 @@
   - [[#description][Description]]
   - [[#examples][Examples]]
   - [[#submissions][Submissions]]
-- [[#238-move-zeroes][238. Move Zeroes]]
+- [[#217-contains-duplicate][217. Contains Duplicate]]
   - [[#description-1][Description]]
+  - [[#submission][Submission]]
+- [[#238-move-zeroes][238. Move Zeroes]]
+  - [[#description-2][Description]]
   - [[#examples-1][Examples]]
   - [[#submissions-1][Submissions]]
 - [[#1431-kids-with-greatest-candies][1431. Kids With Greatest Candies]]
-  - [[#description-2][Description]]
+  - [[#description-3][Description]]
   - [[#examples-2][Examples]]
   - [[#submissions-2][Submissions]]
 - [[#1470-shuffle-the-array][1470. Shuffle the Array]]
-  - [[#description-3][Description]]
+  - [[#description-4][Description]]
   - [[#examples-3][Examples]]
   - [[#constraints][Constraints]]
   - [[#submissions-3][Submissions]]
 - [[#1929-concatenation-of-array][1929. Concatenation of Array]]
-  - [[#description-4][Description]]
+  - [[#description-5][Description]]
   - [[#examples-4][Examples]]
   - [[#constraints-1][Constraints]]
   - [[#submissions-4][Submissions]]
 - [[#2011-final-value-after-operations][2011. Final Value After Operations]]
-  - [[#description-5][Description]]
+  - [[#description-6][Description]]
   - [[#examples-5][Examples]]
   - [[#constraints-2][Constraints]]
   - [[#submissions-5][Submissions]]
@@ -127,6 +130,38 @@ function maxProfit(prices) {
 : 5 - 1
 : ----------
 : 4
+
+* 217. Contains Duplicate
+** Description
+Given an integer array =nums=, return =true= if any value appears *at least twice* in
+the array, and return =false=  if every element is distinct.
+
+** Submission
+#+begin_src js
+const nums = [1, 2, 3, 1];
+
+containsDuplicate(nums);
+
+/**
+ * @param {number[]} nums
+ * @returns `true` if any value appears twic in the array,
+ * `false` if every element is distinct
+ */
+function containsDuplicate(nums) {
+  const map = {};
+  for (let num of nums) {
+    if (!(num in map)) {
+      map[num] = 1;
+    } else {
+      return true;
+    }
+  }
+  console.log(map);
+  return false;
+}
+
+
+#+end_src
 
 * 238. Move Zeroes
 ** Description
